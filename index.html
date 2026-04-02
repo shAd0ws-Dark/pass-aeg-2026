@@ -3,106 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pass Officiel AEG26 • Premium</title>
+    <title>Pass Officiel WEI AEG26</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --p: #2e7d32; --t: #000; --g: #888; }
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #121212; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow: hidden; }
-        
-        /* Conteneur principal avec ombre portée et texture subtile */
-        .ticket { 
-            width: 360px; height: 510px; background-color: #fff; position: relative; 
-            border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            /* Ajout d'une texture papier subtile en pur CSS */
-            background-image: linear-gradient(0deg, #fff 0%, #fff 70%, #f9f9f9 100%);
+        :root {
+            --primary: #2e7d32; /* Vert AEG */
+            --dark: #1a1a1a;
+            --accent: #ffd700;
+            --bg: #121212;
+            --ticket-bg: #ffffff;
         }
 
-        /* En-tête : Zone Logo avec dégradé subtil */
-        .header { height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 2px dashed #eee; position: relative; background: linear-gradient(135deg, #fdfdfd 0%, #f9f9f9 100%); }
-        .logo-box { text-align: center; }
-        .logo { font-size: 38px; font-weight: 900; color: var(--p); margin: 0; letter-spacing: 3px; text-shadow: 0 1px 0 rgba(0,0,0,0.1); }
-        .slogan { font-size: 11px; color: var(--g); letter-spacing: 3px; text-transform: uppercase; margin-top: 5px; font-weight: 300; }
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            font-family: 'Inter', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+        }
 
-        /* Décorations : Coins pointillés avec effet "métal" */
-        .corner { position: absolute; width: 18px; height: 18px; border: 2.5px dashed #ccc; filter: drop-shadow(0 1px 0 #fff); }
-        .tl { top: 18px; left: 18px; border-right: 0; border-bottom: 0; }
-        .br { bottom: 18px; right: 18px; border-left: 0; border-top: 0; }
+        .ticket {
+            width: 360px;
+            background: var(--ticket-bg);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+        }
 
-        /* Icônes de voyage (Générées en CSS/Emoji avec opacité dynamique) */
-        .deco-icon { position: absolute; left: 35px; top: 150px; font-size: 60px; opacity: 0.12; transform: rotate(-10deg); filter: blur(0.5px); }
-        .airplane-deco { position: absolute; bottom: 35px; left: 35px; font-size: 50px; opacity: 0.25; filter: blur(0.5px); }
+        /* En-tête Premium */
+        .header {
+            background: linear-gradient(135deg, var(--primary), #1b5e20);
+            padding: 25px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
 
-        /* Zone d'informations (Alignée à droite comme sur l'image) */
-        .info-container { position: absolute; top: 230px; right: 28px; width: 170px; display: flex; flex-direction: column; gap: 16px; }
-        .field { border-bottom: 1.5px solid #eee; padding-bottom: 6px; }
-        .label { font-size: 9px; color: var(--g); font-weight: bold; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
-        .value { font-size: 12px; color: var(--t); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+        .header h1 {
+            margin: 0; font-size: 32px; font-weight: 900; letter-spacing: 2px;
+        }
 
-        /* Zone QR Code avec effet de badge */
-        .qr-section { position: absolute; bottom: 35px; right: 28px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .qr-box { background: #fff; border: 1.5px solid #eee; padding: 7px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .qr-box img { width: 80px; height: 80px; border-radius: 5px; }
-        .qr-label { font-size: 7px; color: var(--g); margin-top: 6px; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase; }
-        
-        /* Numéro unique discret et élégant */
-        .unique-id { position: absolute; top: 10px; right: 10px; font-size: 6px; color: #ddd; font-family: monospace; text-transform: uppercase; }
+        .header p {
+            margin: 5px 0 0; font-size: 10px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.9;
+        }
+
+        /* Zone de vol / Itinéraire */
+        .route {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 25px;
+            background: #fdfdfd;
+        }
+
+        .city { display: flex; flex-direction: column; }
+        .city-code { font-size: 38px; font-weight: 900; color: var(--dark); line-height: 1; }
+        .city-name { font-size: 11px; color: #888; text-transform: uppercase; margin-top: 4px; }
+
+        .plane-icon {
+            flex-grow: 1; text-align: center; position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .plane-icon::after {
+            content: ""; position: absolute; left: 10%; right: 10%;
+            height: 2px; border-bottom: 2px dashed #ddd; z-index: 1;
+        }
+        .plane-svg {
+            width: 24px; height: 24px; background: white; z-index: 2; padding: 0 10px;
+            fill: var(--primary); transform: rotate(90deg);
+        }
+
+        /* Grille d'informations */
+        .details {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            padding: 0 25px 30px;
+        }
+
+        .item { display: flex; flex-direction: column; }
+        .label { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; margin-bottom: 4px; }
+        .val { font-size: 14px; font-weight: 700; color: var(--dark); text-transform: uppercase; }
+
+        /* Footer & QR */
+        .footer {
+            background: var(--dark);
+            padding: 20px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            color: white;
+        }
+
+        .qr-box {
+            background: white; padding: 6px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .qr-box img { width: 85px; height: 85px; }
+
+        .scan-info { text-align: right; }
+        .scan-info .status { 
+            background: var(--primary); font-size: 9px; padding: 4px 8px; 
+            border-radius: 4px; font-weight: 900; margin-bottom: 8px; display: inline-block;
+        }
+        .scan-info .id { font-family: monospace; font-size: 10px; opacity: 0.5; }
+
+        /* Cut-out (les petits ronds sur les côtés pour le style ticket) */
+        .cut-out {
+            position: absolute; width: 30px; height: 30px; background: var(--bg);
+            border-radius: 50%; top: 105px; /* Aligné sur la ligne pointillée du header */
+        }
+        .left-cut { left: -15px; }
+        .right-cut { right: -15px; }
     </style>
 </head>
 <body>
 
 <div class="ticket">
-    <div class="unique-id">#AEG-2026-PREMIUM</div>
-    <div class="corner tl"></div>
     <div class="header">
-        <div class="logo-box">
-            <h1 class="logo">AEG</h1>
-            <div class="slogan">Solidarité • Égalité</div>
+        <h1>AEG</h1>
+        <p>Solidarité • Égalité</p>
+    </div>
+
+    <div class="cut-out left-cut"></div>
+    <div class="cut-out right-cut"></div>
+
+    <div class="route">
+        <div class="city">
+            <span class="city-code">DKR</span>
+            <span class="city-name">Dakar</span>
+        </div>
+        <div class="plane-icon">
+            <svg class="plane-svg" viewBox="0 0 24 24"><path d="M21,16L21,14L13,9L13,3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5L10,9L2,14L2,16L10,13.5L10,18L8,19.5L8,21L11.5,20L15,21L15,19.5L13,18L13,13.5L21,16Z"/></svg>
+        </div>
+        <div class="city" style="text-align: right;">
+            <span class="city-code">MBR</span>
+            <span class="city-name">Mbour, Saly</span>
         </div>
     </div>
 
-    <div class="deco-icon">🧳</div>
-    <div class="airplane-deco">✈️</div>
-
-    <div class="info-container">
-        <div class="field">
-            <div class="label">Bon pour :</div>
-            <div id="display-name" class="value">Chargement...</div>
+    <div class="details">
+        <div class="item">
+            <span class="label">Passager</span>
+            <span id="name" class="val">Chargement...</span>
         </div>
-        <div class="field">
-            <div class="label">Destination :</div>
-            <div class="value">Mbour, Saly</div>
+        <div class="item">
+            <span class="label">Boarding Group</span>
+            <span class="val">AEG-VIP</span>
         </div>
-        <div class="field">
-            <div class="label">Événement :</div>
-            <div class="value">WEI AEG26</div>
+        <div class="item">
+            <span class="label">Événement</span>
+            <span class="val">WEI AEG 2026</span>
         </div>
-        <div class="field">
-            <div class="label">Date :</div>
-            <div class="value">10-12 Avril 2026</div>
+        <div class="item">
+            <span class="label">Date Départ</span>
+            <span class="val">10 AVRIL</span>
         </div>
     </div>
 
-    <div class="qr-section">
+    <div class="footer">
         <div class="qr-box">
-            <img id="qr-code" alt="QR Code">
+            <img id="qr" alt="QR Code Verification">
         </div>
-        <div class="qr-label">SCAN POUR VÉRIFIER</div>
+        <div class="scan-info">
+            <div class="status">CONFIRMED PASS</div>
+            <div class="id">#AEG-PASS-2026</div>
+            <p style="font-size: 8px; margin: 5px 0 0; color: #666;">SCAN POUR EMBARQUER</p>
+        </div>
     </div>
-    <div class="corner br"></div>
 </div>
 
 <script>
-    // Récupération dynamique depuis Google Sheets
-    const params = new URLSearchParams(window.location.search);
-    const nom = params.get('nom') || "INVITÉ";
-    const prenoms = params.get('prenoms') || "";
-    const nomComplet = (prenoms + " " + nom).trim();
+    const urlParams = new URLSearchParams(window.location.search);
+    const nom = urlParams.get('nom') || "INVITÉ";
+    const prenoms = urlParams.get('prenoms') || "";
+    const complet = (prenoms + " " + nom).trim();
 
-    // Mise à jour du texte
-    document.getElementById('display-name').innerText = nomComplet;
+    document.getElementById('name').innerText = complet;
 
-    // Génération du QR Code net et ultra-pro
-    const qrData = encodeURIComponent("AEG26-" + nomComplet);
-    document.getElementById('qr-code').src = `https://quickchart.io/qr?text=${qrData}&size=150&margin=1`;
+    // Génération du QR Code
+    const qrText = encodeURIComponent(`AEG26-BOARDING-${complet}`);
+    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=150&margin=1`;
 </script>
 
 </body>
