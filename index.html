@@ -6,57 +6,73 @@
     <title>Billet Officiel WEI AEG26</title>
     <style>
         body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; font-family: 'Courier New', Courier, monospace; }
+        
         .pass-container { 
             width: 350px; height: 495px; 
             background-image: url('https://i.imgur.com/DGXx9kR.png'); 
             background-size: cover; position: relative; border-radius: 5px; background-color: white; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            overflow: hidden;
         }
-        
-        /* C'est ICI que j'ai tout recalé 👇 */
+
+        /* Calage sur les lignes de droite 👇 */
         .info-fields { 
             position: absolute; 
-            top: 205px; /* Aligné sur 'Bon pour:' */
-            left: 55%; /* Aligné sur la colonne de droite, pour ne pas toucher le titre de gauche */
-            width: 40%;
-            font-size: 0.85em; /* Police légèrement plus petite pour ne pas déborder */
-            color: black; 
-            line-height: 2.2; /* Espacement calé sur tes lignes blanches */
+            top: 185px; /* Début de la zone 'BON POUR:' */
+            left: 54%;  /* Pousse le texte sur la partie droite de l'image */
+            width: 42%; 
+            font-size: 0.8em; 
+            color: #000; 
+            line-height: 1; /* On gère l'espacement avec les marges des span */
         }
+
         .field-value { 
-            font-weight: bold; display: block; 
-            margin-bottom: 25px; /* Espace entre les champs pour tomber sur les lignes */
+            font-weight: bold; 
+            display: block; 
+            height: 20px; /* Hauteur fixe pour l'alignement */
+            margin-bottom: 30px; /* Écart précis entre les lignes du modèle */
             text-transform: uppercase; 
-            white-space: nowrap; /* Empêche le nom de passer à la ligne */
-            overflow: hidden; /* Coupe le texte s'il est trop long */
-            text-overflow: ellipsis; /* Ajoute '...' si le nom est trop long */
+            white-space: nowrap;
+            overflow: hidden;
         }
-        
-        /* QR Code recalé pour ne pas gêner */
-        .qr-code-verification { position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.9); padding: 4px; border-radius: 5px; border: 1px solid #ccc; }
-        .qr-code-verification img { width: 60px; height: 60px; display: block; }
+
+        /* QR Code en bas à droite */
+        .qr-code-verification { 
+            position: absolute; 
+            bottom: 25px; 
+            right: 20px; 
+            background: white; 
+            padding: 3px; 
+            border: 1px solid #000;
+        }
+        .qr-code-verification img { width: 65px; height: 65px; display: block; }
     </style>
 </head>
 <body>
+
 <div class="pass-container">
     <div class="info-fields">
-        <span id="name" class="field-value">Chargement...</span> <span class="field-value">MBOUR, SALY</span> <span class="field-value">LE WEI AEG26</span> <span class="field-value">10-12 AVRIL</span> </div>
-    <div class="qr-code-verification"><img id="qr" src="" alt="Vérification"></div>
+        <span id="name" class="field-value">Chargement...</span>
+        <span class="field-value">SALY, COCO-BEACH</span>
+        <span class="field-value">LE WEI AEG26</span>
+        <span class="field-value">10-12 AVRIL</span>
+    </div>
+
+    <div class="qr-code-verification">
+        <img id="qr" src="" alt="Vérification">
+    </div>
 </div>
+
 <script>
-    // Récupération des données depuis l'URL (GET parameters)
     const urlParams = new URLSearchParams(window.location.search);
     const nom = urlParams.get('nom') || "Invité";
     const prenoms = urlParams.get('prenoms') || "";
     
-    // Mise à jour du nom de l'étudiant
     document.getElementById('name').innerText = prenoms + " " + nom;
     
-    // Génération du QR code sécurisé (Bleu nuit AEG)
-    const qrText = encodeURIComponent("WEI-AEG26-" + nom + "-" + prenoms + "-VALIDATED");
-    const qrUrl = `https://quickchart.io/qr?text=${qrText}&dark=003366&size=100`;
-    document.getElementById('qr').src = qrUrl;
+    // QR Code sécurisé
+    const qrText = encodeURIComponent("AEG-PASS-" + nom + "-" + prenoms);
+    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=100&dark=000000`;
 </script>
+
 </body>
 </html>
