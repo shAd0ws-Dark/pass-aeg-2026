@@ -5,59 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billet Officiel WEI AEG26</title>
     <style>
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow: hidden; }
+        body { 
+            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; 
+            height: 100vh; background-color: #1a1a1a; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+        }
         
-        /* Conteneur du billet (Ratio standard du Boarding Pass) */
-        .ticket-pass { 
+        .ticket { 
             width: 350px; height: 495px; 
-            background-image: url('URL_DE_TON_IMAGE_NETTOYEE_ICI'); /* TON IMAGE NETTOYEE EST ICI */
-            background-size: cover; position: relative; border-radius: 5px; background-color: white; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            overflow: hidden;
+            /* On utilise l'image sans les textes de droite si possible */
+            background-image: url('https://i.imgur.com/0uzPqhy.png'); 
+            background-size: 100% 100%; position: relative; border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            background-color: white;
         }
 
-        /* Cadre pour l'overlay des infos dynamiques (en bas à droite) */
-        .dynamic-fields { 
-            position: absolute; 
-            top: 200px; /* Aligné sur les champs de ton modèle */
-            left: 50%; 
-            width: 45%;
-            font-size: 0.85em; /* Police calée pour ne pas déborder */
-            color: #000; 
-            line-height: 2.2; /* Espacement calé sur tes lignes blanches */
-        }
-        .field-value { 
-            font-weight: bold; display: block; 
-            margin-bottom: 25px; /* Écart vertical précis pour chaque ligne */
-            text-transform: uppercase; 
-            white-space: nowrap; 
-            overflow: hidden; 
+        /* Zone de texte à droite */
+        .info-zone {
+            position: absolute;
+            top: 200px;
+            right: 20px;
+            width: 160px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px; /* Espacement entre les blocs */
         }
 
-        /* Le QR Code de Vérification (discret, en bas à droite) */
-        .qr-code-verification { position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.9); padding: 5px; border-radius: 5px; border: 1px solid #ccc; }
-        .qr-code-verification img { width: 65px; height: 65px; display: block; }
+        .block {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #eee; /* Petite ligne de séparation stylée */
+            padding-bottom: 4px;
+        }
+
+        .label {
+            font-size: 0.6em;
+            color: #666;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .value {
+            font-size: 0.85em;
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* QR Code intégré au design */
+        .qr-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            text-align: center;
+        }
+
+        .qr-container img {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #000;
+            padding: 2px;
+            background: white;
+        }
+
+        .security-tag {
+            font-size: 0.5em;
+            margin-top: 4px;
+            color: #999;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-<div class="ticket-pass">
-    <div class="dynamic-fields">
-        <span id="name" class="field-value">Chargement...</span> <span class="field-value">MBOUR, SALY</span> <span class="field-value">LE WEI AEG26</span> <span class="field-value">10-12 AVRIL</span> </div>
-    <div class="qr-code-verification"><img id="qr" src="https://via.placeholder.com/65" alt="Vérification"></div>
+
+<div class="ticket">
+    <div class="info-zone">
+        <div class="block">
+            <div class="label">Bon pour :</div>
+            <div id="name" class="value">Chargement...</div>
+        </div>
+        <div class="block">
+            <div class="label">Destination :</div>
+            <div class="value">Mbour, Saly</div>
+        </div>
+        <div class="block">
+            <div class="label">Événement :</div>
+            <div class="value">WEI AEG26</div>
+        </div>
+        <div class="block">
+            <div class="label">Date :</div>
+            <div class="value">10-12 Avril 2026</div>
+        </div>
+    </div>
+
+    <div class="qr-container">
+        <img id="qr" src="" alt="QR">
+        <div class="security-tag">SCAN POUR VÉRIFIER</div>
+    </div>
 </div>
+
 <script>
-    // Récupération des données depuis l'URL (GET parameters)
     const urlParams = new URLSearchParams(window.location.search);
-    const nom = urlParams.get('nom') || "Invité";
+    const nom = urlParams.get('nom') || "INVITÉ";
     const prenoms = urlParams.get('prenoms') || "";
     
-    // Mise à jour du nom de l'étudiant
     document.getElementById('name').innerText = prenoms + " " + nom;
     
-    // Génération du QR code sécurisé (Bleu nuit AEG)
-    const qrText = encodeURIComponent("WEI-AEG26-" + nom + "-" + prenoms + "-VALIDATED");
-    const qrUrl = `https://quickchart.io/qr?text=${qrText}&dark=003366&size=100`;
-    document.getElementById('qr').src = qrUrl;
+    const qrText = encodeURIComponent("AEG26-OFFICIEL-" + nom);
+    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=150&centerImageUrl=https://i.imgur.com/8K5mK8X.png`;
 </script>
+
 </body>
 </html>
