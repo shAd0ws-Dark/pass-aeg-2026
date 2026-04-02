@@ -3,55 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pass WEI AEG26</title>
+    <title>Billet Officiel WEI AEG26</title>
     <style>
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #333; font-family: 'Courier New', Courier, monospace; }
+        body { 
+            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; 
+            height: 100vh; background-color: #1a1a1a; font-family: 'Courier New', Courier, monospace; 
+        }
         
-        .pass-container { 
+        .ticket { 
             width: 350px; height: 495px; 
-            background-image: url('https://i.imgur.com/DGXx9kR.png'); 
-            background-size: 100% 100%; position: relative; background-color: white; 
+            background-image: url('https://i.imgur.com/0uzPqhy.png'); 
+            background-size: 100% 100%; position: relative; border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        /* Conteneur invisible qui force le texte à droite */
-        .right-side-content {
+        /* Conteneur des textes aligné sur la droite */
+        .data-container {
             position: absolute;
-            top: 195px; /* Aligné sur "BON POUR:" */
+            top: 218px; /* Position de la première ligne */
             right: 15px;
-            width: 155px; /* Largeur précise de la zone des lignes */
+            width: 160px; /* Zone des lignes */
             display: flex;
             flex-direction: column;
         }
 
-        .field-value {
-            font-weight: bold;
-            font-size: 0.75em;
-            color: black;
-            height: 48px; /* Hauteur exacte d'une ligne sur ton image */
+        .item {
+            height: 48px; /* Distance exacte entre deux lignes noires */
             display: flex;
-            align-items: center; /* Centre le texte verticalement sur la ligne */
+            align-items: center;
+            font-weight: 900;
+            font-size: 0.8em;
+            color: #000;
             text-transform: uppercase;
-            overflow: hidden;
+            letter-spacing: 0.5px;
         }
 
+        /* QR Code stylé sans bordure blanche inutile */
         .qr-zone {
             position: absolute;
-            bottom: 25px;
-            right: 25px;
-            background: white;
-            padding: 5px;
+            bottom: 22px;
+            right: 22px;
+            mix-blend-mode: multiply; /* Fusionne le QR avec le fond */
         }
-        .qr-zone img { width: 60px; height: 60px; display: block; }
+        .qr-zone img { width: 62px; height: 62px; display: block; opacity: 0.9; }
+
     </style>
 </head>
 <body>
 
-<div class="pass-container">
-    <div class="right-side-content">
-        <span id="name" class="field-value">Chargement...</span>
-        <span class="field-value">SALY, COCO-BEACH</span>
-        <span class="field-value">LE WEI AEG26</span>
-        <span class="field-value">10-12 AVRIL</span>
+<div class="ticket">
+    <div class="data-container">
+        <div id="name" class="item">CHARGEMENT...</div>
+        <div class="item">MBOUR, SALY</div>
+        <div class="item">WEI AEG26</div>
+        <div class="item">10-12 AVRIL</div>
     </div>
 
     <div class="qr-zone">
@@ -60,13 +65,15 @@
 </div>
 
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const nom = params.get('nom') || "INVITE";
-    const prenoms = params.get('prenoms') || "";
+    const urlParams = new URLSearchParams(window.location.search);
+    const nom = urlParams.get('nom') || "INVITÉ";
+    const prenoms = urlParams.get('prenoms') || "";
+    
     document.getElementById('name').innerText = prenoms + " " + nom;
-
-    const qrText = encodeURIComponent("AEG-2026-" + nom);
-    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=100`;
+    
+    const qrText = encodeURIComponent("AEG26-" + nom + "-" + prenoms);
+    // QR Code généré en haute résolution
+    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=150&margin=0`;
 </script>
 
 </body>
