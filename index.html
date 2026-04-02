@@ -7,16 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2e7d32; /* Vert AEG */
-            --dark: #1a1a1a;
-            --accent: #ffd700;
-            --bg: #121212;
-            --ticket-bg: #ffffff;
+            /* Variables de couleur - Senior-Proofed */
+            --aeg-green: #2e7d32; /* Le Vert officiel AEG */
+            --aeg-dark: #1a1a1a;  /* Le noir pour le texte */
+            --aeg-bg-page: #121212; /* Fond de page très sombre */
+            --ticket-bg-middle: #ffffff; /* Fond de la zone d'infos */
         }
 
         body {
             margin: 0; padding: 0;
-            background-color: var(--bg);
+            background-color: var(--aeg-bg-page);
             font-family: 'Inter', sans-serif;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh;
@@ -24,16 +24,16 @@
 
         .ticket {
             width: 360px;
-            background: var(--ticket-bg);
+            /* La structure du billet est maintenue, on va juste changer les fonds */
             border-radius: 24px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             overflow: hidden;
             position: relative;
         }
 
-        /* En-tête Premium */
+        /* En-tête (DÉJÀ VERT - ON LAISSE COMME ÇA) */
         .header {
-            background: linear-gradient(135deg, var(--primary), #1b5e20);
+            background: linear-gradient(135deg, var(--aeg-green), #1b5e20);
             padding: 25px;
             color: white;
             text-align: center;
@@ -48,15 +48,15 @@
             margin: 5px 0 0; font-size: 10px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.9;
         }
 
-        /* Zone de vol / Itinéraire */
+        /* --- Zone Middle : Itinéraire --- */
         .route {
             display: flex; justify-content: space-between; align-items: center;
             padding: 30px 25px;
-            background: #fdfdfd;
+            background: var(--ticket-bg-middle); /* Toujours blanc pour le contraste */
         }
 
         .city { display: flex; flex-direction: column; }
-        .city-code { font-size: 38px; font-weight: 900; color: var(--dark); line-height: 1; }
+        .city-code { font-size: 38px; font-weight: 900; color: var(--aeg-dark); line-height: 1; }
         .city-name { font-size: 11px; color: #888; text-transform: uppercase; margin-top: 4px; }
 
         .plane-icon {
@@ -67,46 +67,53 @@
             content: ""; position: absolute; left: 10%; right: 10%;
             height: 2px; border-bottom: 2px dashed #ddd; z-index: 1;
         }
+        /* L'avion SVG est maintenant vert sur fond blanc */
         .plane-svg {
             width: 24px; height: 24px; background: white; z-index: 2; padding: 0 10px;
-            fill: var(--primary); transform: rotate(90deg);
+            fill: var(--aeg-green); transform: rotate(90deg);
         }
 
-        /* Grille d'informations */
+        /* --- Zone Middle : Grille d'infos --- */
         .details {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
             padding: 0 25px 30px;
+            background: var(--ticket-bg-middle); /* Toujours blanc */
         }
 
         .item { display: flex; flex-direction: column; }
         .label { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; margin-bottom: 4px; }
-        .val { font-size: 14px; font-weight: 700; color: var(--dark); text-transform: uppercase; }
+        .val { font-size: 14px; font-weight: 700; color: var(--aeg-dark); text-transform: uppercase; }
 
-        /* Footer & QR */
+        /* --- Footer & QR : LA ZONE À CORRIGER --- */
         .footer {
-            background: var(--dark);
-            padding: 20px 25px;
+            /* LA CORRECTION Senior : On passe au Vert AEG */
+            background: linear-gradient(135deg, var(--aeg-green), #1b5e20);
+            padding: 25px;
             display: flex; justify-content: space-between; align-items: center;
-            color: white;
+            color: white; /* Texte passe au blanc pour la lisibilité */
         }
 
+        /* Le QR code doit rester noir sur blanc pour les scanners */
         .qr-box {
             background: white; padding: 6px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
         }
+        /* Le QR code généré via l'API reste noir, c'est bon pour le contraste */
         .qr-box img { width: 85px; height: 85px; }
 
         .scan-info { text-align: right; }
+        /* Le badge "Confirmed" passe en blanc sur vert pour un look Premium */
         .scan-info .status { 
-            background: var(--primary); font-size: 9px; padding: 4px 8px; 
+            background: white; color: var(--aeg-green); font-size: 9px; padding: 4px 10px; 
             border-radius: 4px; font-weight: 900; margin-bottom: 8px; display: inline-block;
         }
-        .scan-info .id { font-family: monospace; font-size: 10px; opacity: 0.5; }
+        .scan-info .id { font-family: monospace; font-size: 10px; opacity: 0.6; }
 
-        /* Cut-out (les petits ronds sur les côtés pour le style ticket) */
+        /* --- Cut-out pour le style ticket physique --- */
         .cut-out {
-            position: absolute; width: 30px; height: 30px; background: var(--bg);
-            border-radius: 50%; top: 105px; /* Aligné sur la ligne pointillée du header */
+            position: absolute; width: 30px; height: 30px; background: var(--aeg-bg-page);
+            border-radius: 50%; top: 105px; /* Aligné sur la transition vert/blanc */
+            z-index: 10;
         }
         .left-cut { left: -15px; }
         .right-cut { right: -15px; }
@@ -163,7 +170,7 @@
         <div class="scan-info">
             <div class="status">CONFIRMED PASS</div>
             <div class="id">#AEG-PASS-2026</div>
-            <p style="font-size: 8px; margin: 5px 0 0; color: #666;">SCAN POUR EMBARQUER</p>
+            <p style="font-size: 8px; margin: 5px 0 0; color: rgba(255,255,255,0.7);">SCAN POUR EMBARQUER</p>
         </div>
     </div>
 </div>
@@ -176,7 +183,7 @@
 
     document.getElementById('name').innerText = complet;
 
-    // Génération du QR Code
+    // Génération du QR Code net et conforme à la charte
     const qrText = encodeURIComponent(`AEG26-BOARDING-${complet}`);
     document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=150&margin=1`;
 </script>
