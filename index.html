@@ -5,115 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billet Officiel WEI AEG26</title>
     <style>
+        /* --- Styles Généraux --- */
         body { 
             margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; 
-            height: 100vh; background-color: #1a1a1a; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            height: 100vh; background-color: #f0f0f0; font-family: 'Courier New', Courier, monospace; 
+            overflow: hidden;
         }
         
-        .ticket { 
-            width: 350px; height: 495px; 
-            /* On utilise l'image sans les textes de droite si possible */
-            background-image: url('https://i.imgur.com/0uzPqhy.png'); 
-            background-size: 100% 100%; position: relative; border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            background-color: white;
+        /* --- Le Billet (Conteneur) --- */
+        .ticket-visual { 
+            width: 350px; height: 495px; background-color: white; border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;
+            border: 1px solid #ddd;
         }
 
-        /* Zone de texte à droite */
-        .info-zone {
-            position: absolute;
-            top: 200px;
-            right: 20px;
-            width: 160px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px; /* Espacement entre les blocs */
+        /* --- 1. Chemin Pointillé (Reproduit en CSS) --- */
+        .path-dots {
+            position: absolute; top: 10px; left: 10px; width: 100px; height: 100px;
+            border-left: 2px dashed #000; border-top: 2px dashed #000;
+            border-radius: 15px 0 0 0; opacity: 0.5;
+        }
+        .path-dots-bottom {
+            position: absolute; bottom: 10px; left: 10px; width: 80px; height: 80px;
+            border-left: 2px dashed #000; border-bottom: 2px dashed #000;
+            border-radius: 0 0 0 15px; opacity: 0.5;
         }
 
-        .block {
-            display: flex;
-            flex-direction: column;
-            border-bottom: 1px solid #eee; /* Petite ligne de séparation stylée */
-            padding-bottom: 4px;
+        /* --- 2. Logo AEG & Voyageuse (Reproduit en CSS) --- */
+        .header-logo {
+            position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+        }
+        /* Logo AEG (Texte stylisé) */
+        .aeg-text { font-size: 1.8em; font-weight: bold; color: #008000; /* Vert AEG */ text-transform: uppercase; letter-spacing: 2px; }
+        .udb-text { font-size: 0.8em; color: #0000FF; /* Bleu AEG */ margin-top: -5px; }
+        .motto { font-size: 0.5em; color: #666; font-style: italic; }
+
+        /* Silhouette Voyageuse (Caractère Unicode stylisé) */
+        .traveler-icon { font-size: 2.5em; color: black; margin-top: 10px; }
+
+        /* --- 3. Vagues Postales (Reproduit en SVG CSS) --- */
+        .postmark-waves {
+            position: absolute; top: 30px; right: 20px; width: 80px; height: 40px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" viewBox="0 0 80 40"><path d="M0,10 Q20,0 40,10 T80,10 M0,20 Q20,10 40,20 T80,20 M0,30 Q20,20 40,30 T80,30" stroke="black" fill="none" stroke-width="1"/></svg>');
+            background-size: cover; opacity: 0.7;
         }
 
-        .label {
-            font-size: 0.6em;
-            color: #666;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
+        /* --- 4. Gros Texte de Gauche (Reproduit en HTML) --- */
+        .main-title-left {
+            position: absolute; top: 150px; left: 20px; width: 150px;
+            display: flex; flex-direction: column; gap: 5px;
+        }
+        .title-serif { font-family: 'Times New Roman', Times, serif; font-size: 1.4em; color: black; }
+        .title-bold-block { font-weight: 900; font-size: 1.6em; text-transform: uppercase; color: black; line-height: 1; }
+
+        /* Séparateur Horizontal */
+        .separator-line {
+            position: absolute; top: 350px; left: 20px; width: 310px;
+            border-top: 1px solid #000;
         }
 
-        .value {
-            font-size: 0.85em;
-            color: #000;
-            font-weight: 800;
-            text-transform: uppercase;
+        /* --- 5. Formulaire de Droite (Reproduit en HTML) --- */
+        .form-right {
+            position: absolute; top: 180px; right: 20px; width: 140px;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .form-block { border-bottom: 1px solid #000; padding-bottom: 5px; }
+        .label-text { font-size: 0.65em; color: #000; font-weight: normal; text-transform: uppercase; margin-bottom: 2px; }
+        
+        /* Les valeurs dynamiques à remplir 👇 */
+        .value-text { 
+            font-size: 0.8em; color: black; font-weight: bold; text-transform: uppercase; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
         }
 
-        /* QR Code intégré au design */
-        .qr-container {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            text-align: center;
-        }
+        /* Avion en bas */
+        .plane-icon { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 1.5em; color: black; }
 
-        .qr-container img {
-            width: 70px;
-            height: 70px;
-            border: 1px solid #000;
-            padding: 2px;
-            background: white;
+        /* --- 6. Zone QR Code --- */
+        .qr-zone {
+            position: absolute; bottom: 15px; right: 15px;
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
         }
-
-        .security-tag {
-            font-size: 0.5em;
-            margin-top: 4px;
-            color: #999;
-            font-weight: bold;
-        }
+        .qr-zone img { width: 65px; height: 65px; border: 1px solid #000; padding: 2px; background: white; }
+        .security-tag { font-size: 0.5em; color: #999; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="ticket">
-    <div class="info-zone">
-        <div class="block">
-            <div class="label">Bon pour :</div>
-            <div id="name" class="value">Chargement...</div>
+<div class="ticket-visual">
+    <div class="path-dots"></div>
+    <div class="path-dots-bottom"></div>
+
+    <div class="header-logo">
+        <div class="aeg-text">AEG</div>
+        <div class="udb-text">UDB</div>
+        <div class="motto">Solidarité · Égalité · Réussite</div>
+        <div class="traveler-icon">🚶‍♀️🧳</div> </div>
+
+    <div class="postmark-waves"></div>
+
+    <div class="main-title-left">
+        <span class="title-serif">PRÉPARE</span>
+        <span class="title-bold-block">TA VALISE</span>
+        <span class="title-serif">TU PARS EN</span>
+        <span class="title-bold-block">VOYAGE</span>
+    </div>
+
+    <div class="separator-line"></div>
+
+    <div class="form-right">
+        <div class="form-block">
+            <div class="label-text">Bon pour :</div>
+            <div id="name" class="value-text">Chargement...</div>
         </div>
-        <div class="block">
-            <div class="label">Destination :</div>
-            <div class="value">Mbour, Saly</div>
+        <div class="form-block">
+            <div class="label-text">Destination :</div>
+            <div class="value-text">MBOUR, SALY</div>
         </div>
-        <div class="block">
-            <div class="label">Événement :</div>
-            <div class="value">WEI AEG26</div>
+        <div class="form-block">
+            <div class="label-text">Pour :</div>
+            <div class="value-text">LE WEI AEG26</div>
         </div>
-        <div class="block">
-            <div class="label">Date :</div>
-            <div class="value">10-12 Avril 2026</div>
+        <div class="form-block">
+            <div class="label-text">De :</div>
+            <div class="value-text">10-12 AVRIL</div>
         </div>
     </div>
 
-    <div class="qr-container">
+    <div class="plane-icon">✈️</div>
+
+    <div class="qr-zone">
         <img id="qr" src="" alt="QR">
         <div class="security-tag">SCAN POUR VÉRIFIER</div>
     </div>
 </div>
 
 <script>
+    // Récupération des données depuis l'URL (GET parameters)
     const urlParams = new URLSearchParams(window.location.search);
-    const nom = urlParams.get('nom') || "INVITÉ";
+    const nom = urlParams.get('nom') || "Invité";
     const prenoms = urlParams.get('prenoms') || "";
     
+    // Mise à jour du nom de l'étudiant
     document.getElementById('name').innerText = prenoms + " " + nom;
     
-    const qrText = encodeURIComponent("AEG26-OFFICIEL-" + nom);
-    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=150&centerImageUrl=https://i.imgur.com/8K5mK8X.png`;
+    // Génération du QR code sécurisé (Bleu nuit AEG)
+    const qrText = encodeURIComponent("WEI-AEG26-" + nom + "-" + prenoms + "-VALIDATED");
+    const qrUrl = `https://quickchart.io/qr?text=${qrText}&dark=003366&size=100`;
+    document.getElementById('qr').src = qrUrl;
 </script>
 
 </body>
