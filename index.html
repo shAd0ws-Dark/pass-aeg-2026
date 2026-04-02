@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billet Officiel WEI AEG26</title>
+    <style>
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; font-family: 'Courier New', Courier, monospace; }
+        .pass-container { 
+            width: 350px; height: 495px; 
+            background-image: url('https://i.imgur.com/DGXx9kR.png'); 
+            background-size: cover; position: relative; border-radius: 5px; background-color: white; 
+        }
+        .info-fields { position: absolute; top: 198px; left: 53%; width: 42%; font-size: 0.85em; color: black; line-height: 2.3; }
+        .field-value { font-weight: bold; display: block; margin-bottom: 25px; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+        .qr-code-verification { position: absolute; bottom: 15px; right: 15px; background: rgba(255, 255, 255, 0.9); padding: 4px; border-radius: 5px; border: 1px solid #ccc; }
+        .qr-code-verification img { width: 60px; height: 60px; display: block; }
+    </style>
+</head>
+<body>
+<div class="pass-container">
+    <div class="info-fields">
+        <span id="name" class="field-value">NOM PRENOM</span>
+        <span class="field-value">MBOUR, SALY</span>
+        <span class="field-value">LE WEI AEG26</span>
+        <span class="field-value">10-12 AVRIL</span>
+    </div>
+    <div class="qr-code-verification"><img id="qr" src="" alt="QR"></div>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const nom = urlParams.get('nom') || "Invité";
+    const prenoms = urlParams.get('prenoms') || "";
+    document.getElementById('name').innerText = prenoms + " " + nom;
+    const qrText = encodeURIComponent("WEI-AEG26-" + nom + "-" + prenoms);
+    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&dark=000000&size=100`;
+</script>
+</body>
+</html>
