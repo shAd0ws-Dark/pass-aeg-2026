@@ -3,75 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Billet Officiel WEI AEG26</title>
+    <title>Pass WEI AEG26</title>
     <style>
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; font-family: 'Courier New', Courier, monospace; }
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #333; font-family: 'Courier New', Courier, monospace; }
         
         .pass-container { 
             width: 350px; height: 495px; 
             background-image: url('https://i.imgur.com/DGXx9kR.png'); 
-            background-size: cover; position: relative; border-radius: 5px; background-color: white; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background-size: 100% 100%; position: relative; background-color: white; 
         }
 
-        /* Calage sur les lignes de droite 👇 */
-        .info-fields { 
-            position: absolute; 
-            top: 185px; /* Début de la zone 'BON POUR:' */
-            left: 54%;  /* Pousse le texte sur la partie droite de l'image */
-            width: 42%; 
-            font-size: 0.8em; 
-            color: #000; 
-            line-height: 1; /* On gère l'espacement avec les marges des span */
+        /* Conteneur invisible qui force le texte à droite */
+        .right-side-content {
+            position: absolute;
+            top: 195px; /* Aligné sur "BON POUR:" */
+            right: 15px;
+            width: 155px; /* Largeur précise de la zone des lignes */
+            display: flex;
+            flex-direction: column;
         }
 
-        .field-value { 
-            font-weight: bold; 
-            display: block; 
-            height: 20px; /* Hauteur fixe pour l'alignement */
-            margin-bottom: 30px; /* Écart précis entre les lignes du modèle */
-            text-transform: uppercase; 
-            white-space: nowrap;
+        .field-value {
+            font-weight: bold;
+            font-size: 0.75em;
+            color: black;
+            height: 48px; /* Hauteur exacte d'une ligne sur ton image */
+            display: flex;
+            align-items: center; /* Centre le texte verticalement sur la ligne */
+            text-transform: uppercase;
             overflow: hidden;
         }
 
-        /* QR Code en bas à droite */
-        .qr-code-verification { 
-            position: absolute; 
-            bottom: 25px; 
-            right: 20px; 
-            background: white; 
-            padding: 3px; 
-            border: 1px solid #000;
+        .qr-zone {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            background: white;
+            padding: 5px;
         }
-        .qr-code-verification img { width: 65px; height: 65px; display: block; }
+        .qr-zone img { width: 60px; height: 60px; display: block; }
     </style>
 </head>
 <body>
 
 <div class="pass-container">
-    <div class="info-fields">
+    <div class="right-side-content">
         <span id="name" class="field-value">Chargement...</span>
         <span class="field-value">SALY, COCO-BEACH</span>
         <span class="field-value">LE WEI AEG26</span>
         <span class="field-value">10-12 AVRIL</span>
     </div>
 
-    <div class="qr-code-verification">
-        <img id="qr" src="" alt="Vérification">
+    <div class="qr-zone">
+        <img id="qr" src="" alt="QR">
     </div>
 </div>
 
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const nom = urlParams.get('nom') || "Invité";
-    const prenoms = urlParams.get('prenoms') || "";
-    
+    const params = new URLSearchParams(window.location.search);
+    const nom = params.get('nom') || "INVITE";
+    const prenoms = params.get('prenoms') || "";
     document.getElementById('name').innerText = prenoms + " " + nom;
-    
-    // QR Code sécurisé
-    const qrText = encodeURIComponent("AEG-PASS-" + nom + "-" + prenoms);
-    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=100&dark=000000`;
+
+    const qrText = encodeURIComponent("AEG-2026-" + nom);
+    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=100`;
 </script>
 
 </body>
