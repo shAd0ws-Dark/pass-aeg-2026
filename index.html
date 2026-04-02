@@ -3,94 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pass Officiel AEG26</title>
+    <title>Pass WEI AEG26 - Officiel</title>
     <style>
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #222; font-family: 'Helvetica Neue', Arial, sans-serif; overflow: hidden; }
-        
-        /* Conteneur principal du billet */
-        .ticket { width: 350px; height: 495px; position: relative; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); background-color: #fff; overflow: hidden; font-weight: bold; }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            /* Police pour le thème voyage */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow: hidden;
+        }
 
-        /* --- En-tête généré en code --- */
-        .ticket-header { background-color: #fdfdfd; height: 105px; border-bottom: 2px dashed #eee; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 10px; position: relative; }
-        
-        .logo-aeg { font-size: 26px; color: #2e7d32; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
-        .sub-logo { font-size: 11px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+        .ticket-pass {
+            width: 350px; /* Taille optimale smartphone */
+            height: 495px; /* Ratio standard d'une carte postale de ton modèle */
+            /* TON IMAGE NETTOYEE EST ICI 👇 */
+            background-image: url('URL_DE_TON_IMAGE_NETTOYEE_ICI');
+            background-size: cover;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: white;
+        }
 
-        /* Coins pointillés recréés en code */
-        .corner { position: absolute; font-size: 10px; color: #ccc; letter-spacing: 2px; transform-origin: center; }
-        .corner-tl { top: 10px; left: 10px; width: 10px; height: 10px; border-top: 2px dashed; border-left: 2px dashed; }
-        .corner-br { bottom: 10px; right: 10px; width: 10px; height: 10px; border-bottom: 2px dashed; border-right: 2px dashed; }
+        /* Overlay pour les infos dynamiques (en bas à droite) */
+        .dynamic-fields {
+            position: absolute;
+            top: 200px; /* Aligné sur les champs de ton modèle */
+            left: 50%; /* Aligné sur la colonne de droite */
+            width: 45%;
+            font-size: 0.85em;
+            color: black;
+            line-height: 2.2; /* Espacement calé sur tes lignes blanches */
+        }
 
-        /* --- Zone d'écriture (identique au Sheets) --- */
-        .info-zone { position: absolute; top: 195px; right: 20px; width: 165px; display: flex; flex-direction: column; gap: 15px; z-index: 10; }
-        .info-block { border-bottom: 1.5px solid #e0e0e0; padding-bottom: 3px; }
-        .label { font-size: 0.65em; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; font-weight: bold; }
-        .value { font-size: 0.85em; color: #000; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+        .field-value {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 25px; /* Calage vertical précis pour chaque ligne */
+            text-transform: uppercase;
+        }
 
-        /* --- Icônes et Tampons générés en SVG (zéro dépendance) --- */
-        .icon { position: absolute; z-index: 1; opacity: 0.1; }
-        .airplane { top: 120px; left: 20px; font-size: 40px; color: #f0f0f0; line-height: 1; }
-        .travel-icons { top: 30px; right: 20px; width: 60px; height: 60px; z-index: 0; opacity: 0.1; }
-        .stamp { top: 120px; right: 20px; transform: rotate(-15deg); font-size: 10px; color: #aaa; text-transform: uppercase; border: 1px dashed; border-radius: 4px; padding: 2px 4px; z-index: 1; }
+        /* Le QR Code de Vérification (discret, en bas à droite) */
+        .qr-code-verification {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
 
-        /* --- QR Code et ID --- */
-        .qr-area { position: absolute; bottom: 25px; right: 25px; text-align: center; }
-        .qr-area img { width: 75px; height: 75px; background: white; padding: 4px; border: 1.5px solid #eee; border-radius: 5px; }
-        .scan-lbl { font-size: 0.55em; color: #999; margin-top: 3px; font-weight: bold; text-transform: uppercase; font-family: sans-serif; }
-        .unique-id { position: absolute; bottom: 8px; right: 8px; font-size: 0.4em; color: #ccc; font-family: monospace; text-transform: uppercase; }
+        .qr-code-verification img {
+            width: 65px; /* Taille compacte */
+            height: 65px;
+            display: block;
+        }
     </style>
 </head>
 <body>
 
-<div class="ticket">
-    <div class="corner corner-tl"></div>
-    <div class="ticket-header">
-        <p class="logo-aeg">AEG</p>
-        <p class="sub-logo">SOLIDARITÉ • ÉGALITÉ</p>
-    </div>
+<div class="ticket-pass">
+    <div class="dynamic-fields">
+        <span id="name" class="field-value">Chargement...</span> <span class="field-value">MBOUR, SALY</span> <span class="field-value">LE WEI AEG26</span> <span class="field-value">10-12 AVRIL</span> </div>
 
-    <div class="airplane">✈️</div>
-    <div class="stamp">BON VOYAGE</div>
-    <div class="unique-id">#AEG-2026-CODE</div>
-
-    <div class="info-zone">
-        <div class="info-block">
-            <div class="label">Bon pour :</div>
-            <div id="name" class="value">Chargement...</div>
-        </div>
-        <div class="info-block">
-            <div class="label">Destination :</div>
-            <div class="value">Mbour, Saly</div>
-        </div>
-        <div class="info-block">
-            <div class="label">Événement :</div>
-            <div class="value">WEI AEG26</div>
-        </div>
-        <div class="info-block">
-            <div class="label">Date :</div>
-            <div class="value">10-12 Avril 2026</div>
-        </div>
-    </div>
-
-    <div class="qr-area">
-        <img id="qr" src="" alt="Vérification">
-        <div class="scan-lbl">SCAN POUR VÉRIFIER</div>
+    <div class="qr-code-verification">
+        <img id="qr" src="https://via.placeholder.com/65" alt="Vérification">
     </div>
 </div>
 
 <script>
-    // Récupération des paramètres URL (du Sheets)
+    // Récupération des données depuis l'URL (GET parameters)
     const urlParams = new URLSearchParams(window.location.search);
-    const nom = urlParams.get('nom') || "INVITÉ";
+    const nom = urlParams.get('nom') || "Invité";
     const prenoms = urlParams.get('prenoms') || "";
     
-    // Affichage du nom complet de l'étudiant
-    const complet = (prenoms + " " + nom).trim();
-    document.getElementById('name').innerText = complet;
+    // Mise à jour du nom de l'étudiant
+    document.getElementById('name').innerText = prenoms + " " + nom;
     
-    // Génération du QR Code net et conforme au design
-    const qrText = encodeURIComponent("AEG26-" + complet);
-    document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=150&margin=1`;
+    // Génération du QR code sécurisé (Bleu nuit AEG)
+    const qrText = encodeURIComponent("WEI-AEG26-" + nom + "-" + prenoms + "-VALIDATED");
+    const qrUrl = `https://quickchart.io/qr?text=${qrText}&dark=003366&size=100`;
+    document.getElementById('qr').src = qrUrl;
 </script>
 
 </body>
