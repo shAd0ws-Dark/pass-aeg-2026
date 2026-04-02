@@ -3,82 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pass Officiel WEI AEG26</title>
+    <title>Pass Officiel AEG26</title>
     <style>
-        body { 
-            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; 
-            height: 100vh; background-color: #222; font-family: 'Helvetica Neue', Arial, sans-serif; 
-        }
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #222; font-family: 'Helvetica Neue', Arial, sans-serif; overflow: hidden; }
         
-        .ticket { 
-            width: 350px; height: 495px; 
-            /*background-image: url('https://i.imgur.com/0uzPqhy.png'); */
-            background-size: 100% 100%; position: relative; border-radius: 10px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            background-color: white;
-        }
+        /* Conteneur principal du billet */
+        .ticket { width: 350px; height: 495px; position: relative; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); background-color: #fff; overflow: hidden; font-weight: bold; }
 
-        /* Zone d'écriture à droite */
-        .info-zone {
-            position: absolute;
-            top: 200px; /* Aligné sur le milieu du billet */
-            right: 20px;
-            width: 155px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Espace entre les blocs d'info */
-        }
+        /* --- En-tête généré en code --- */
+        .ticket-header { background-color: #fdfdfd; height: 105px; border-bottom: 2px dashed #eee; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 10px; position: relative; }
+        
+        .logo-aeg { font-size: 26px; color: #2e7d32; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        .sub-logo { font-size: 11px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
 
-        .info-block {
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 2px;
-        }
+        /* Coins pointillés recréés en code */
+        .corner { position: absolute; font-size: 10px; color: #ccc; letter-spacing: 2px; transform-origin: center; }
+        .corner-tl { top: 10px; left: 10px; width: 10px; height: 10px; border-top: 2px dashed; border-left: 2px dashed; }
+        .corner-br { bottom: 10px; right: 10px; width: 10px; height: 10px; border-bottom: 2px dashed; border-right: 2px dashed; }
 
-        .label {
-            font-size: 0.65em;
-            color: #888;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
+        /* --- Zone d'écriture (identique au Sheets) --- */
+        .info-zone { position: absolute; top: 195px; right: 20px; width: 165px; display: flex; flex-direction: column; gap: 15px; z-index: 10; }
+        .info-block { border-bottom: 1.5px solid #e0e0e0; padding-bottom: 3px; }
+        .label { font-size: 0.65em; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; font-weight: bold; }
+        .value { font-size: 0.85em; color: #000; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .value {
-            font-size: 0.85em;
-            color: #000;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        /* --- Icônes et Tampons générés en SVG (zéro dépendance) --- */
+        .icon { position: absolute; z-index: 1; opacity: 0.1; }
+        .airplane { top: 120px; left: 20px; font-size: 40px; color: #f0f0f0; line-height: 1; }
+        .travel-icons { top: 30px; right: 20px; width: 60px; height: 60px; z-index: 0; opacity: 0.1; }
+        .stamp { top: 120px; right: 20px; transform: rotate(-15deg); font-size: 10px; color: #aaa; text-transform: uppercase; border: 1px dashed; border-radius: 4px; padding: 2px 4px; z-index: 1; }
 
-        /* QR Code avec un petit effet de badge */
-        .qr-area {
-            position: absolute;
-            bottom: 22px;
-            right: 22px;
-            text-align: center;
-        }
-
-        .qr-area img {
-            width: 70px;
-            height: 70px;
-            background: white;
-            padding: 3px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .id-ticket {
-            font-size: 0.5em;
-            color: #bbb;
-            margin-top: 5px;
-            font-family: monospace;
-        }
+        /* --- QR Code et ID --- */
+        .qr-area { position: absolute; bottom: 25px; right: 25px; text-align: center; }
+        .qr-area img { width: 75px; height: 75px; background: white; padding: 4px; border: 1.5px solid #eee; border-radius: 5px; }
+        .scan-lbl { font-size: 0.55em; color: #999; margin-top: 3px; font-weight: bold; text-transform: uppercase; font-family: sans-serif; }
+        .unique-id { position: absolute; bottom: 8px; right: 8px; font-size: 0.4em; color: #ccc; font-family: monospace; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div class="ticket">
+    <div class="corner corner-tl"></div>
+    <div class="ticket-header">
+        <p class="logo-aeg">AEG</p>
+        <p class="sub-logo">SOLIDARITÉ • ÉGALITÉ</p>
+    </div>
+
+    <div class="airplane">✈️</div>
+    <div class="stamp">BON VOYAGE</div>
+    <div class="unique-id">#AEG-2026-CODE</div>
+
     <div class="info-zone">
         <div class="info-block">
             <div class="label">Bon pour :</div>
@@ -100,19 +74,22 @@
 
     <div class="qr-area">
         <img id="qr" src="" alt="Vérification">
-        <div class="id-ticket">#AEG-2026-CONFIRMED</div>
+        <div class="scan-lbl">SCAN POUR VÉRIFIER</div>
     </div>
 </div>
 
 <script>
+    // Récupération des paramètres URL (du Sheets)
     const urlParams = new URLSearchParams(window.location.search);
     const nom = urlParams.get('nom') || "INVITÉ";
     const prenoms = urlParams.get('prenoms') || "";
     
-    document.getElementById('name').innerText = prenoms + " " + nom;
+    // Affichage du nom complet de l'étudiant
+    const complet = (prenoms + " " + nom).trim();
+    document.getElementById('name').innerText = complet;
     
-    // QR Code ultra-net
-    const qrText = encodeURIComponent("AEG-PASS-" + nom + "-" + prenoms);
+    // Génération du QR Code net et conforme au design
+    const qrText = encodeURIComponent("AEG26-" + complet);
     document.getElementById('qr').src = `https://quickchart.io/qr?text=${qrText}&size=150&margin=1`;
 </script>
 
